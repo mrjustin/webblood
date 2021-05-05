@@ -1,0 +1,169 @@
+import 'package:flutter/material.dart';
+import 'widgets/navbar.dart';
+import 'utils/responsiveLayout.dart';
+import 'widgets/bottom.dart';
+
+void main() {
+  runApp(MaterialApp(
+    title: 'Blood LB',
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      primarySwatch: Colors.red,
+    ),
+    home: HomePage(),
+  ));
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+                colors: [
+                  const Color(0xFFFFFFFF),
+                  const Color(0xFFE53935),
+                ],
+                begin: const FractionalOffset(0.2, 0.1),
+                end: const FractionalOffset(1.0, 0.0),
+                tileMode: TileMode.clamp),
+          ),
+          child: Column(
+            children: <Widget>[
+              NavBar(),
+              Body(),
+            ],
+          )),
+    );
+  }
+}
+
+class Body extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ResponsiveLayout(
+      largeScreen: LargeChild(),
+      smallScreen: SmallChild(),
+    );
+  }
+}
+
+class LargeChild extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 600,
+      child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          FractionallySizedBox(
+            alignment: Alignment.centerRight,
+            widthFactor: .5,
+            child: Image.network('assets/phone.png', scale: 2.0),
+          ),
+          FractionallySizedBox(
+              alignment: Alignment.centerLeft,
+              widthFactor: .6,
+              child: Padding(
+                  padding: EdgeInsets.only(left: 48),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Find your",
+                          style: TextStyle(
+                              fontSize: 60,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Montserrat-Regular",
+                              color: Color(0xFF111111)),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text: "blood donor!",
+                            style: TextStyle(
+                                fontSize: 60, color: Color(0xFFE53935)),
+                            children: [
+                              TextSpan(
+                                  text: "🩸",
+                                  style: TextStyle(
+                                    fontSize: 60,
+                                    fontWeight: FontWeight.bold,
+                                    // color: Colors.black54
+                                  ))
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12.0, top: 20),
+                          child: Text(
+                              "Blood LB is an easy-to-use app to find or request blood in Lebanon."),
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Bottom()
+                      ])))
+        ],
+      ),
+    );
+  }
+}
+
+class SmallChild extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+        child: Padding(
+      padding: EdgeInsets.all(40),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            "Find your",
+            style: TextStyle(
+                fontSize: 60,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Montserrat-Regular",
+                color: Color(0xFF111111)),
+          ),
+          RichText(
+            text: TextSpan(
+              text: "blood donor!",
+              style: TextStyle(fontSize: 60, color: Color(0xFFE53935)),
+              children: [
+                TextSpan(
+                    text: "🩸",
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      // color: Colors.black54
+                    ))
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 12.0, top: 20),
+            child: Text(
+                "Blood LB is an easy-to-use app to find or request blood in Lebanon."),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Center(
+            child: Image.network("assets/phone.png", scale: 1),
+          ),
+          SizedBox(
+            height: 32,
+          ),
+          Bottom(),
+          SizedBox(
+            height: 30,
+          )
+        ],
+      ),
+    ));
+  }
+}
